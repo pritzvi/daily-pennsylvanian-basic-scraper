@@ -10,6 +10,10 @@ Tools like GitHub Actions, GitLab CI and others make git scraping adaptable to d
 
 This template includes a sample workflow to demonstrate the core git scraping capabilities. Read on to learn how to customize it!
 
+## Reconfigured to get Sports headline from DP for CIS 3500 HW02
+The scraper has been configured to retrieve the top sports headline from The Daily Pennsylvanian's homepage. It works by first locating the Sports section through its unique header (an h3 element with class "frontpage-section" containing the text "Sports"), then navigating to its parent div container. Within this sports section, it finds the first article summary (div with class "article-summary") and extracts the headline text from its frontpage link. This approach ensures we consistently get the most prominent sports story of the day, which is typically the lead article in the sports section. The scraper includes proper browser headers to prevent request blocking and handles text cleaning through the strip() method. This modification provides reliable access to the latest Penn sports coverage, making it particularly useful for tracking athletic news and developments.
+
+
 ## Overview
 
 The workflow defined in `.github/workflows/scrape.yaml` runs on a defined schedule to:
