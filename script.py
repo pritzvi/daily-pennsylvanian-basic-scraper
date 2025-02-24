@@ -15,7 +15,7 @@ import loguru
 
 def scrape_data_point():
     """
-    Scrapes the main headline from The Daily Pennsylvanian home page.
+    Scrapes the top sports headline from The Daily Pennsylvanian home page.
 
     Returns:
         str: The headline text if found, otherwise an empty string.
@@ -30,7 +30,9 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
-        target_element = soup.find("div", class_="sidebar-story").find("a", class_="frontpage-link")
+        # Find specifically the Sports section by looking for the h3 containing "Sports"
+        sports_section = soup.find("h3", class_="frontpage-section", string=lambda text: "Sports" in text if text else False).find_parent("div")
+        target_element = sports_section.find("div", class_="article-summary").find("a", class_="frontpage-link")
         data_point = "" if target_element is None else target_element.text.strip()
         loguru.logger.info(f"Data point: {data_point}")
         return data_point
